@@ -7,7 +7,7 @@
 
         <variable
             name="employee"
-            type="com.zobaze.zobazerefractortask.view.adapter.EmployeeViewData" />
+            type="com.zobaze.zobazerefractortask.adapter.EmployeeViewData" />
 
     </data>
 

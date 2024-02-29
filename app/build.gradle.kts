@@ -47,16 +47,16 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
-    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
-
+    //navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 }
 
 kapt {

@@ -1,4 +1,4 @@
-package com.zobaze.zobazerefractortask.view.adapter
+package com.zobaze.zobazerefractortask.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.zobaze.zobazerefractortask.databinding.ItemEmployeeBinding

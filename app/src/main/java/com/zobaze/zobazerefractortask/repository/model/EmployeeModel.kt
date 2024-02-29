@@ -1,7 +1,7 @@
 package com.zobaze.zobazerefractortask.repository.model
 
 import androidx.annotation.Keep
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 /**
  * @Keep the class from obfuscation as data is coming from BE
@@ -11,6 +11,6 @@ import com.squareup.moshi.Json
 @Keep
 data class EmployeeModel(
     val id: Int,
-    @Json(name = "employee_name")
+    @SerializedName("employee_name")
     val name: String?
 )

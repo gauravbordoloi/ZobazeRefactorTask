@@ -1,20 +1,23 @@
-package com.zobaze.zobazerefractortask.view.adapter
+package com.zobaze.zobazerefractortask.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.zobaze.zobazerefractortask.databinding.ItemEmployeeBinding
 import javax.inject.Inject
 
-class EmployeeAdapter @Inject constructor() : RecyclerView.Adapter<EmployeeViewHolder>() {
+class EmployeeAdapter @Inject constructor(
+    private var employeeAdapterListener: EmployeeAdapterListener
+) : RecyclerView.Adapter<EmployeeViewHolder>() {
 
     private var employees: List<EmployeeViewData>? = null
 
     fun setEmployees(employees: List<EmployeeViewData>) {
-        //Diff util is not required
+        val callback = EmployeeDiffUtil(this.employees, employees)
+        val diffResult = DiffUtil.calculateDiff(callback)
         this.employees = employees
-        notifyDataSetChanged()
-        //TODO: Add diff util
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeViewHolder {
@@ -29,8 +32,11 @@ class EmployeeAdapter @Inject constructor() : RecyclerView.Adapter<EmployeeViewH
     }
 
     override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {
-        employees?.getOrNull(position)?.let {
-            holder.bind(it)
+        employees?.getOrNull(position)?.let { data ->
+            holder.bind(data)
+            holder.itemView.setOnClickListener {
+                employeeAdapterListener.onEmployeeClicked(data)
+            }
         }
     }
 

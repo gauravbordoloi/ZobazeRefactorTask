@@ -1,19 +1,17 @@
 package com.zobaze.zobazerefractortask.di
 
-import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.squareup.moshi.Moshi
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.zobaze.zobazerefractortask.repository.network.EmployeeApi
 import com.zobaze.zobazerefractortask.repository.network.EmployeeApiNetworkImpl
 import com.zobaze.zobazerefractortask.repository.network.NetworkEmployeeApiV1
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -21,16 +19,12 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
 
-    @Provides
-    @Singleton
-    fun provideContext(@ApplicationContext context: Context): Context {
-        return context
-    }
+    private const val BASE_URL = "https://dummy.restapiexample.com/api/"
 
     @Singleton
     @Provides
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
+    fun provideGson(): Gson {
+        return GsonBuilder().create()
     }
 
     @Provides
@@ -47,22 +41,21 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(context: Context): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(15L, TimeUnit.SECONDS)
             .connectTimeout(15L, TimeUnit.SECONDS)
             .writeTimeout(15L, TimeUnit.SECONDS)
-            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient, moshi: Moshi): Retrofit {
+    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://dummy.restapiexample.com/api/")
+            .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 

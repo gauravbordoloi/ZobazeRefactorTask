@@ -1,7 +1,10 @@
-package com.zobaze.zobazerefractortask.view.adapter
+package com.zobaze.zobazerefractortask.adapter
 
 import com.zobaze.zobazerefractortask.repository.model.EmployeeModel
 
+/**
+ * Separate model for view data
+ */
 data class EmployeeViewData(
     val id: Int,
     val name: String?

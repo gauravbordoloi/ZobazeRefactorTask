@@ -11,7 +11,12 @@ class EmployeeApiNetworkImpl @Inject constructor(
 ) : EmployeeApi {
 
     override suspend fun getEmployees(): NetworkResponse<List<EmployeeModel>> {
-        return networkEmployeeApiV1.getEmployees()
+        val res = networkEmployeeApiV1.getEmployees()
+        return when {
+            res.code() == 200 && res.body() != null -> res.body()!!
+            res.code() == 429 -> NetworkResponse.error("error", "Too many requests")
+            else -> NetworkResponse.error("error", res.errorBody()?.string() ?: "Unknown error")
+        }
     }
 
 }
