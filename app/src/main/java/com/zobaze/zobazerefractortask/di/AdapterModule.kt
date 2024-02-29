@@ -8,7 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 
-@InstallIn(FragmentComponent::class)
+@InstallIn(FragmentComponent::class) //required to inject in fragment only
 @Module
 object AdapterModule {
 

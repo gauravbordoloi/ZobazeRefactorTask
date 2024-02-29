@@ -8,7 +8,7 @@ class ZobazeApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //
+        //empty, can add logic later
     }
 
 }

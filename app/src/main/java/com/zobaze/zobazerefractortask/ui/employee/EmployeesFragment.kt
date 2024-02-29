@@ -15,7 +15,6 @@ import com.zobaze.zobazerefractortask.ui.employee.viewmodel.EmployeesViewModel
 import com.zobaze.zobazerefractortask.util.observeInLifecycle
 import com.zobaze.zobazerefractortask.util.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,8 +56,11 @@ class EmployeesFragment : Fragment(), EmployeeAdapterListener {
         }
     }
 
+    /**
+     * Observe for employee data here
+     */
     private fun observeData() {
-        employeesViewModel.flowCollector.onEach {
+        employeesViewModel.flowCollector.observeInLifecycle(viewLifecycleOwner) {
             when (it) {
                 is EmployeesViewModel.Event.Employees -> {
                     employeeAdapter.setEmployees(it.employees)
@@ -68,11 +70,12 @@ class EmployeesFragment : Fragment(), EmployeeAdapterListener {
                     requireContext().showShortToast(it.message)
                 }
             }
-        }.observeInLifecycle(viewLifecycleOwner)
+        }
     }
 
     private fun fetchData() {
         requireContext().showShortToast(getString(R.string.retrieving_employees))
+        //You can pass the logic in argument as required
         employeesViewModel.fetchEmployees(arrayOf(3, 7, 4))
     }
 

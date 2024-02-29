@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(SingletonComponent::class) //required as singleton
 @Module
 object AppModule {
 
@@ -16,6 +16,5 @@ object AppModule {
     fun provideZobazeApp(@ApplicationContext context: Context): ZobazeApp {
         return context as ZobazeApp
     }
-
 
 }

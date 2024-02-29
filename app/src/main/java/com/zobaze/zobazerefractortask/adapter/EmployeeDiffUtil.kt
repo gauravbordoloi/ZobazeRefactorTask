@@ -2,6 +2,9 @@ package com.zobaze.zobazerefractortask.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 
+/**
+ * Effective item comparison using diffutil
+ */
 class EmployeeDiffUtil(
     private val oldList: List<EmployeeViewData>? = null,
     private val newList: List<EmployeeViewData>

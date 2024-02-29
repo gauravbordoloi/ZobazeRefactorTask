@@ -13,6 +13,9 @@ class EmployeeAdapter @Inject constructor(
 
     private var employees: List<EmployeeViewData>? = null
 
+    /**
+     * @param employees Pass the new list of employees
+     */
     fun setEmployees(employees: List<EmployeeViewData>) {
         val callback = EmployeeDiffUtil(this.employees, employees)
         val diffResult = DiffUtil.calculateDiff(callback)
@@ -28,7 +31,7 @@ class EmployeeAdapter @Inject constructor(
     }
 
     override fun getItemCount(): Int {
-        return employees.orEmpty().size
+        return employees?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {

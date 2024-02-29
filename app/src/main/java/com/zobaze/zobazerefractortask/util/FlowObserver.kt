@@ -8,6 +8,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
+/**
+ * Automatically cancel the job once the attached lifecycle is stopped
+ */
 class FlowObserver<T> (
     lifecycleOwner: LifecycleOwner,
     private val flow: Flow<T>,
@@ -36,5 +39,6 @@ class FlowObserver<T> (
 }
 
 inline fun <reified T> Flow<T>.observeInLifecycle(
-    lifecycleOwner: LifecycleOwner
-) = FlowObserver(lifecycleOwner, this, {})
+    lifecycleOwner: LifecycleOwner,
+    noinline collector: suspend (T) -> Unit
+) = FlowObserver(lifecycleOwner, this, collector)
